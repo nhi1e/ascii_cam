@@ -35,6 +35,7 @@
 				display: flex;
 				align-items: center;
 				justify-content: center;
+				position: relative; /* ✅ Important for layering */
 			}
 
 			#webcam {
@@ -44,12 +45,48 @@
 
 				transform: scaleX(-1); /* mirror the video */
 			}
+			#tomato {
+				position: absolute;
+				top: -10px;
+				right: 200px;
+				width: 300px; /* or any size you want */
+				opacity: 0.95; /* slightly transparent */
+				pointer-events: none; /* so it doesn’t interfere with interaction */
+			}
+			#orchids {
+				position: absolute;
+				top: 300px;
+				right: 200px;
+				width: 300px; /* or any size you want */
+				opacity: 0.95; /* slightly transparent */
+				pointer-events: none; /* so it doesn’t interfere with interaction */
+			}
+			#pink_pin {
+				position: absolute;
+				top: 150px;
+				left: 10px;
+				width: 200px; /* or any size you want */
+				opacity: 0.95; /* slightly transparent */
+				pointer-events: none; /* so it doesn’t interfere with interaction */
+			}
+			#clover{
+				position: absolute;
+				top: 250px;
+				left: 90px;
+				width: 200px; /* or any size you want */
+				opacity: 0.95; /* slightly transparent */
+				pointer-events: none; /* so it doesn’t interfere with interaction */
+			}
 		</style>
 	</head>
 	<body>
 		<pre id="ascii">Loading...</pre>
+		<img id="tomato" src="./assets/tomato.png" alt="Tomato" />
+		<img id="pink_pin" src="./assets/pink_pin.png" alt="Pink Pin" />
+		<img id="clover" src="./assets/clover.png" alt="Clover" />
 		<div id="webcam-container">
 			<video id="webcam" autoplay muted playsinline></video>
+			<img id="orchids" src="./assets/orchids.png" alt="Orchids" />
 		</div>
 
 		<script>
