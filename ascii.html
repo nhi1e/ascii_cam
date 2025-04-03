@@ -45,6 +45,30 @@
 
 				transform: scaleX(-1); /* mirror the video */
 			}
+			#pearl1 {
+				position: absolute;
+				top: 40px;
+				right: 600px;
+				width: 70px; /* or any size you want */
+				opacity: 0.95; /* slightly transparent */
+				pointer-events: none;
+			}
+			#pearl2 {
+				position: absolute;
+				top: 40px;
+				right: 550px;
+				width: 70px; /* or any size you want */
+				opacity: 0.95; /* slightly transparent */
+				pointer-events: none;
+			}
+			#pearl3 {
+				position: absolute;
+				top: 40px;
+				right: 500px;
+				width: 70px; /* or any size you want */
+				opacity: 0.95; /* slightly transparent */
+				pointer-events: none;
+			}
 			#tomato {
 				position: absolute;
 				top: -10px;
@@ -63,17 +87,33 @@
 			}
 			#pink_pin {
 				position: absolute;
-				top: 150px;
+				top: 30px;
 				left: 10px;
 				width: 200px; /* or any size you want */
 				opacity: 0.95; /* slightly transparent */
 				pointer-events: none; /* so it doesn’t interfere with interaction */
 			}
-			#clover{
+			#clover {
 				position: absolute;
-				top: 250px;
+				top: 130px;
 				left: 90px;
 				width: 200px; /* or any size you want */
+				opacity: 0.95; /* slightly transparent */
+				pointer-events: none; /* so it doesn’t interfere with interaction */
+			}
+			#pin {
+				position: absolute;
+				top: 230px;
+				left: -40px;
+				width: 230px; /* or any size you want */
+				opacity: 0.95; /* slightly transparent */
+				pointer-events: none; /* so it doesn’t interfere with interaction */
+			}
+			#star {
+				position: absolute;
+				top: 480px;
+				right: -20px;
+				width: 150px; /* or any size you want */
 				opacity: 0.95; /* slightly transparent */
 				pointer-events: none; /* so it doesn’t interfere with interaction */
 			}
@@ -81,12 +121,17 @@
 	</head>
 	<body>
 		<pre id="ascii">Loading...</pre>
+		<img id="pearl1" src="./assets/pearl.png" alt="Pearl1" />
+		<img id="pearl2" src="./assets/pearl.png" alt="Pearl2" />
+		<img id="pearl3" src="./assets/pearl.png" alt="Pearl3" />
+
 		<img id="tomato" src="./assets/tomato.png" alt="Tomato" />
 		<img id="pink_pin" src="./assets/pink_pin.png" alt="Pink Pin" />
 		<img id="clover" src="./assets/clover.png" alt="Clover" />
 		<div id="webcam-container">
 			<video id="webcam" autoplay muted playsinline></video>
 			<img id="orchids" src="./assets/orchids.png" alt="Orchids" />
+			<img id="star" src="./assets/star.png" alt="Star" />
 		</div>
 
 		<script>
