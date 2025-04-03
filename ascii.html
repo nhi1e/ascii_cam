@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>ASCII Webcam</title>
+		<style>
+			html,
+			body {
+				margin: 0;
+				padding: 0;
+				overflow: hidden;
+				background: black;
+				color: white;
+				font-family: monospace;
+				white-space: pre;
+				width: 100%;
+				height: 100%;
+				display: flex;
+				flex-direction: row;
+			}
+
+			#ascii {
+				font-size: 10px;
+				line-height: 10px;
+				letter-spacing: 0px;
+				padding: 20px;
+				flex: 1;
+				box-sizing: border-box;
+			}
+
+			#webcam-container {
+				width: 40%;
+				padding: 20px;
+				box-sizing: border-box;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			#webcam {
+				width: 100%;
+				height: auto;
+				border-radius: 12px; /* Rounded corners */
+
+				transform: scaleX(-1); /* mirror the video */
+			}
+		</style>
+	</head>
+	<body>
+		<pre id="ascii">Loading...</pre>
+		<div id="webcam-container">
+			<video id="webcam" autoplay muted playsinline></video>
+		</div>
+
+		<script>
+			const video = document.createElement("video"); // hidden for ASCII capture
+			video.setAttribute("autoplay", true);
+			video.setAttribute("muted", true);
+			video.setAttribute("playsinline", true);
+
+			const asciiVideo = document.getElementById("webcam"); // visible on right
+			const canvas = document.createElement("canvas");
+			const ctx = canvas.getContext("2d");
+			const ascii = document.getElementById("ascii");
+
+			const available = [" ", "`", ".", "~", "+", "I", "X", "O", "8", "%", "W"];
+			const chars = available.join("");
+			const density = chars.length;
+
+			let width, height;
+
+			function updateSize() {
+				width = Math.floor(window.innerWidth / 8);
+				height = Math.floor(window.innerHeight / 10);
+			}
+
+			navigator.mediaDevices.getUserMedia({ video: true }).then((stream) => {
+				video.srcObject = stream;
+				asciiVideo.srcObject = stream;
+				video.play();
+				asciiVideo.play();
+				requestAnimationFrame(render);
+			});
+
+			function render() {
+				updateSize();
+
+				canvas.width = width;
+				canvas.height = height;
+
+				ctx.save();
+				ctx.scale(-1, 1); // Mirror
+				ctx.drawImage(video, -width, 0, width, height);
+				ctx.restore();
+
+				const frame = ctx.getImageData(0, 0, width, height).data;
+				let asciiImage = "";
+
+				for (let y = 0; y < height; y++) {
+					for (let x = 0; x < width; x++) {
+						const i = (y * width + x) * 4;
+						const avg = (frame[i] + frame[i + 1] + frame[i + 2]) / 3;
+						const char = chars[Math.floor((avg / 255) * (density - 1))];
+						asciiImage += char;
+					}
+					asciiImage += "\n";
+				}
+
+				ascii.textContent = asciiImage;
+				requestAnimationFrame(render);
+			}
+		</script>
+	</body>
+</html>
